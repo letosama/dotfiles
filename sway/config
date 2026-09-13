@@ -1,0 +1,142 @@
+set $mod Mod4
+####### autostart ########
+
+exec waybar & nm-applet
+exec mako & /usr/libexec/xfce-polkit
+exec thunderbird & telegram-desktop
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP DISPLAY SWAYSOCK XCURSOR_THEME XCURSOR_SIZE
+exec systemctl --user start sway-session.target
+exec swaybg  -m fill -i Pictures/wallpapers/harmony.png
+
+# Monitor setup
+output "Dell Inc. DELL E1912H 2N00N2660BQB" mode 1366x768@59.790Hz position 0,0
+output eDP-1 mode 1920x1080@59.999Hz position 1366,0 scale 1.25
+
+######## keyboard and touchpad setting ######## 
+
+input type:keyboard {
+	xkb_layout tr
+}
+
+input "2:14:SynPS/2_Synaptics_TouchPad" {
+	dwt enabled
+	tap enabled
+	natural_scroll enabled
+	middle_emulation enabled
+}
+
+######## shortcuts ######## 
+
+bindsym $mod+Insert exec pkill waybar
+bindsym $mod+Delete exec waybar
+
+bindsym $mod+Return exec kitty
+
+bindsym $mod+Shift+q kill
+
+bindsym $mod+d exec rofi -show drun -show-icons
+
+bindsym $mod+Shift+w exec firefox
+
+bindsym $mod+n exec thunar
+
+floating_modifier $mod normal
+
+bindsym $mod+Shift+r reload
+
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+bindsym $mod+h splith
+bindsym $mod+v splitv
+
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen
+
+bindsym $mod+Shift+space floating toggle
+
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+Shift+l exec swaylock -f -c 000000
+
+bindsym Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
+bindsym $mod+Print exec grim ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
+
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+
+bindsym $mod+p exec ~/.local/bin/toggle-cpu-mode
+
+bindsym $mod+b exec kitty -e .cargo/bin/bluetui
+
+bindsym $mod+g exec thunderbird
+ 
+####### theme ########
+
+font pango: 0xProto Nerd Font 11
+
+####### gruvbox colors ########
+set $bg0        #282828
+set $bg1        #3c3836
+set $bg2        #504945
+set $fg0        #ebdbb2
+set $fg1        #d5c4a1
+set $green      #b8bb26
+set $green-dim  #98971a
+set $red        #fb4934
+set $gray       #928374
+
+# class                 border      bg          text    indicator   child_border
+client.focused           $green-dim  $green-dim  $bg0    $green      $green-dim
+client.focused_inactive  $bg2        $bg2        $fg1    $bg2        $bg2
+client.unfocused         $bg1        $bg1        $gray   $bg1        $bg1
+client.urgent             $red       $red        $bg0    $red        $red
+client.placeholder        $bg0       $bg0        $fg0    $bg0        $bg0
+client.background          $bg0
+
+gaps inner 2
+gaps outer 2
+default_border pixel 2
+default_floating_border pixel 2
+
+####### other ########
+
+bindswitch --reload --locked lid:on exec swaylock -f -c 000000 

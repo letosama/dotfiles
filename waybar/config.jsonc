@@ -1,0 +1,57 @@
+{
+    
+"height": 40,
+"spacing": 2,
+"modules-left": [
+	"sway/workspaces"
+],
+"modules-center": [
+	"clock"
+],
+"modules-right": [
+	"pulseaudio",
+	"temperature",
+	"backlight",
+	"battery",
+    "tray"
+
+],
+
+"clock": {
+	"format": "{:%H:%M - %d/%m/%Y}"
+}, 
+    
+"pulseaudio": {
+    "format": "VOL {volume}%",
+    "format-muted": "Muted",
+    "scroll-step": 5,
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+
+    "tooltip": true,
+    "tooltip-format": "{desc}\nVolume: {volume}%"
+}, 
+
+"temperature": {
+    "format": "TEMP  {temperatureC}°C",
+    "format-critical": "TMP  {temperatureC}°C",
+    "critical-threshold": 90,
+    "interval": 5
+},
+
+"backlight": {
+    "format": "LIGHT {percent}%"
+},
+
+"battery": {
+    "format": "BAT {capacity}%",
+    "format-charging": "CHARGE  {capacity}%",
+    "interval": 10,
+    "tooltip": true,
+    "tooltip-format": "{capacity}%\n{timeTo}"
+},
+"tray": {
+	"spacing": 5
+
+}
+}

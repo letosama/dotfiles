@@ -1,0 +1,10 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-window: "Windows";
+}
+
+@theme "~/.config/rofi/gruvbox-green.rasi"
